@@ -49,7 +49,6 @@ public class Myframe extends JFrame {
 
     private void addGuiComponents(){
                 /*Buttons */
-                //digits
 
         button1 = new JButton();
         button1.setBounds(5, 340, 90, 50);
@@ -265,7 +264,7 @@ public class Myframe extends JFrame {
 
     private int sum(int firstValue){
         int resultl;    
-        
+        //try to do with Scanner
         
         return result;
     }
