@@ -2,8 +2,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Scanner;
 
-public class Myframe extends JFrame {
+public class Myframe extends JFrame{
     
     JButton button1;
     JButton button2;
@@ -30,9 +33,9 @@ public class Myframe extends JFrame {
     JButton buttonCos;
     JTextField textField;
 
-    public static final String PLUS = "+";
-    int firstValue = 0;
-    int secondValue = 0;
+    String operator = "";
+    double firstValue = 0;
+    double secondValue = 0;
 
     public Myframe(){
         /*Frame options */
@@ -55,7 +58,7 @@ public class Myframe extends JFrame {
         button1.setForeground(Color.BLACK);
         button1.setBackground(Color.LIGHT_GRAY);
         button1.setText("1");
-        button1.setFocusable(false);
+        button1.addActionListener(new ButtonClick());
         add(button1);
 
         button2 = new JButton();
@@ -64,7 +67,7 @@ public class Myframe extends JFrame {
         button2.setBackground(Color.LIGHT_GRAY);
         button2.setText("2");
         button2.setVisible(true);
-        button2.setFocusable(false);
+        button2.addActionListener(new ButtonClick());
         this.add(button2);
 
         button3 = new JButton();
@@ -72,8 +75,8 @@ public class Myframe extends JFrame {
         button3.setForeground(Color.BLACK);
         button3.setBackground(Color.LIGHT_GRAY);
         button3.setText("3");
+        button3.addActionListener(new ButtonClick());
         button3.setVisible(true);
-        button3.setFocusable(false);
         this.add(button3);
 
         button4 = new JButton();
@@ -81,8 +84,8 @@ public class Myframe extends JFrame {
         button4.setForeground(Color.BLACK);
         button4.setBackground(Color.LIGHT_GRAY);
         button4.setText("4");
+        button4.addActionListener(new ButtonClick());
         button4.setVisible(true);
-        button4.setFocusable(false);
         this.add(button4);
 
         button5 = new JButton();
@@ -90,8 +93,8 @@ public class Myframe extends JFrame {
         button5.setForeground(Color.BLACK);
         button5.setBackground(Color.LIGHT_GRAY);
         button5.setText("5");
+        button5.addActionListener(new ButtonClick());
         button5.setVisible(true);
-        button5.setFocusable(false);
         this.add(button5);
 
         button6 = new JButton();
@@ -99,8 +102,8 @@ public class Myframe extends JFrame {
         button6.setForeground(Color.BLACK);
         button6.setBackground(Color.LIGHT_GRAY);
         button6.setText("6");
+        button6.addActionListener(new ButtonClick());
         button6.setVisible(true);
-        button6.setFocusable(false);
         this.add(button6);
 
         button7 = new JButton();
@@ -108,8 +111,8 @@ public class Myframe extends JFrame {
         button7.setForeground(Color.BLACK);
         button7.setBackground(Color.LIGHT_GRAY);
         button7.setText("7");
+        button7.addActionListener(new ButtonClick());
         button7.setVisible(true);
-        button7.setFocusable(false);
         this.add(button7);
 
         button8 = new JButton();
@@ -117,8 +120,8 @@ public class Myframe extends JFrame {
         button8.setForeground(Color.BLACK);
         button8.setBackground(Color.LIGHT_GRAY);
         button8.setText("8");
+        button8.addActionListener(new ButtonClick());
         button8.setVisible(true);
-        button8.setFocusable(false);
         this.add(button8);
 
         button9 = new JButton();
@@ -126,8 +129,8 @@ public class Myframe extends JFrame {
         button9.setForeground(Color.BLACK);
         button9.setBackground(Color.LIGHT_GRAY);
         button9.setText("9");
+        button9.addActionListener(new ButtonClick());
         button9.setVisible(true);
-        button9.setFocusable(false);
         this.add(button9);
 
         button0 = new JButton();
@@ -135,8 +138,8 @@ public class Myframe extends JFrame {
         button0.setForeground(Color.BLACK);
         button0.setBackground(Color.LIGHT_GRAY);
         button0.setText("0");
+        button0.addActionListener(new ButtonClick());
         button0.setVisible(true);
-        button0.setFocusable(false);
         this.add(button0);
         // operators
 
@@ -146,7 +149,7 @@ public class Myframe extends JFrame {
         buttonPlus.setBackground(Color.LIGHT_GRAY);
         buttonPlus.setText("+");
         buttonPlus.setVisible(true);
-        buttonPlus.setFocusable(false);
+        buttonPlus.addActionListener(new ButtonClick());
         this.add(buttonPlus);
 
         buttonMinus = new JButton();
@@ -155,7 +158,7 @@ public class Myframe extends JFrame {
         buttonMinus.setBackground(Color.LIGHT_GRAY);
         buttonMinus.setText("-");
         buttonMinus.setVisible(true);
-        buttonMinus.setFocusable(false);
+        buttonMinus.addActionListener(new ButtonClick());
         this.add(buttonMinus);
 
         buttonTimes = new JButton();
@@ -164,7 +167,7 @@ public class Myframe extends JFrame {
         buttonTimes.setBackground(Color.LIGHT_GRAY);
         buttonTimes.setText("*");
         buttonTimes.setVisible(true);
-        buttonTimes.setFocusable(false);
+        buttonTimes.addActionListener(new ButtonClick());
         this.add(buttonTimes);
 
         buttonDivide = new JButton();
@@ -173,7 +176,7 @@ public class Myframe extends JFrame {
         buttonDivide.setBackground(Color.LIGHT_GRAY);
         buttonDivide.setText("/");
         buttonDivide.setVisible(true);
-        buttonDivide.setFocusable(false);
+        buttonDivide.addActionListener(new ButtonClick());
         this.add(buttonDivide);
 
         buttonDelete = new JButton();
@@ -182,7 +185,6 @@ public class Myframe extends JFrame {
         buttonDelete.setBackground(Color.LIGHT_GRAY);
         buttonDelete.setText("D");
         buttonDelete.setVisible(true);
-        buttonDelete.setFocusable(false);
         this.add(buttonDelete);
 
         buttonFractionalPart = new JButton();
@@ -191,7 +193,6 @@ public class Myframe extends JFrame {
         buttonFractionalPart.setBackground(Color.LIGHT_GRAY);
         buttonFractionalPart.setText(",");
         buttonFractionalPart.setVisible(true);
-        buttonFractionalPart.setFocusable(false);
         this.add(buttonFractionalPart);
 
         buttonNegate = new JButton();
@@ -200,7 +201,6 @@ public class Myframe extends JFrame {
         buttonNegate.setBackground(Color.LIGHT_GRAY);
         buttonNegate.setText("+/-");
         buttonNegate.setVisible(true);
-        buttonNegate.setFocusable(false);
         this.add(buttonNegate);
 
         buttonSqrt = new JButton();
@@ -209,7 +209,6 @@ public class Myframe extends JFrame {
         buttonSqrt.setBackground(Color.LIGHT_GRAY);
         buttonSqrt.setText("\u221A");
         buttonSqrt.setVisible(true);
-        buttonSqrt.setFocusable(false);
         this.add(buttonSqrt);
 
         buttonSquare = new JButton();
@@ -218,7 +217,6 @@ public class Myframe extends JFrame {
         buttonSquare.setBackground(Color.LIGHT_GRAY);
         buttonSquare.setText("x^2");
         buttonSquare.setVisible(true);
-        buttonSquare.setFocusable(false);
         this.add(buttonSquare);
 
         buttonSin = new JButton();
@@ -227,7 +225,6 @@ public class Myframe extends JFrame {
         buttonSin.setBackground(Color.LIGHT_GRAY);
         buttonSin.setText("sin(x)");
         buttonSin.setVisible(true);
-        buttonSin.setFocusable(false);
         this.add(buttonSin);
         
         buttonCos = new JButton();
@@ -236,7 +233,6 @@ public class Myframe extends JFrame {
         buttonCos.setBackground(Color.LIGHT_GRAY);
         buttonCos.setText("cos(x)");
         buttonCos.setVisible(true);
-        buttonCos.setFocusable(false);
         this.add(buttonCos);
         //others
 
@@ -246,7 +242,7 @@ public class Myframe extends JFrame {
         buttonEquals.setBackground(Color.LIGHT_GRAY);
         buttonEquals.setText("=");
         buttonEquals.setVisible(true);
-        buttonEquals.setFocusable(false);
+        buttonEquals.addActionListener(new ButtonClick());
         this.add(buttonEquals);
 
         buttonClearAll = new JButton();
@@ -254,18 +250,81 @@ public class Myframe extends JFrame {
         buttonClearAll.setForeground(Color.BLACK);
         buttonClearAll.setBackground(Color.LIGHT_GRAY);
         buttonClearAll.setText("C");
-        buttonClearAll.setFocusable(false);
-        this.add(buttonClearAll);
+        buttonClearAll.addActionListener(new ButtonClick());
+        add(buttonClearAll);
 
-        JTextField textField = new JTextField();
+        textField = new JTextField();
         textField.setBounds( 5, 5, 375, 200);
         this.add(textField);
     }
 
-    private int sum(int firstValue){
-        int resultl;    
-        //try to do with Scanner
+    // private void writeToTextField(){
+
+    // }
+
+
+    private class ButtonClick implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand();
+            String value = "";
+            System.out.println(command);
+            switch(command){
+                case "C":
+                    textField.setText("");
+                    firstValue = 0;
+                    secondValue = 0;
+                    operator = "";
+                    break;
+                case "+":
+                    textField.setText("");
+                    
+                case "-":
+                    // firstValue = Double.parseDouble(textField.getText());
+                    // System.out.println(firstValue);
+                    // operator = command;
+                    // command = "";
+                case "*":
+                    // firstValue = Double.parseDouble(textField.getText());
+                    // operator = command;
+                    // command = "";   
+                case "/":
+                    // firstValue = Double.parseDouble(textField.getText());
+                    // operator = command;
+                    // command = "";
+                case "=":
+                    // secondValue = Double.parseDouble();
+                    double result = 0;
+
+                    switch (command) {
+                        case "+":
+                            result = firstValue + secondValue;
+                            break;
+                        case "-":
+                            result = firstValue - secondValue;
+                            break;
+                        case "*":
+                            result = firstValue * secondValue;
+                            break;    
+                        case "/":
+                            if(secondValue == 0){
+                                textField.setText("Ошибка");
+                                return;
+                            }
+                            else{
+                                result = firstValue / secondValue;
+                            }
+                            break;
+                        default:
+                            textField.setText(String.valueOf(result));
+                            operator = "";
+                            break;
+                    }
+                default:
+                    textField.setText(command);
+                    break;
+            }
+        }
         
-        return result;
     }
 }
