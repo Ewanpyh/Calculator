@@ -36,6 +36,9 @@ public class Myframe extends JFrame{
     String operator = "";
     double firstValue = 0;
     double secondValue = 0;
+    String stringValue;
+    double thirdValue;
+    double result;
 
     public Myframe(){
         /*Frame options */
@@ -268,22 +271,32 @@ public class Myframe extends JFrame{
         public void actionPerformed(ActionEvent e) {
             String command = e.getActionCommand();
             String value = "";
-            System.out.println(command);
             switch(command){
                 case "C":
                     textField.setText("");
                     firstValue = 0;
                     secondValue = 0;
+                    thirdValue = 0;
+                    stringValue = "";
                     operator = "";
+                    result = 0;
                     break;
                 case "+":
+                    if(result == 0){
+                        secondValue = firstValue;
+                    }
                     textField.setText("");
-                    
+                    operator = "+";
+                    stringValue = "";
+                    break;
                 case "-":
-                    // firstValue = Double.parseDouble(textField.getText());
-                    // System.out.println(firstValue);
-                    // operator = command;
-                    // command = "";
+                    if (result == 0){
+                        secondValue = firstValue;
+                    }
+                    textField.setText("");
+                    operator = "-";
+                    stringValue = "";
+                    break;
                 case "*":
                     // firstValue = Double.parseDouble(textField.getText());
                     // operator = command;
@@ -293,15 +306,22 @@ public class Myframe extends JFrame{
                     // operator = command;
                     // command = "";
                 case "=":
-                    // secondValue = Double.parseDouble();
-                    double result = 0;
-
-                    switch (command) {
+                    //secondValue = Double.parseDouble();
+                    
+                    switch (operator) {
                         case "+":
-                            result = firstValue + secondValue;
+                            thirdValue = firstValue + secondValue;
+                            result += thirdValue;
+                            secondValue = 0;
+                            thirdValue = 0;
+                            textField.setText(String.valueOf(result));
                             break;
                         case "-":
-                            result = firstValue - secondValue;
+                            thirdValue = secondValue - firstValue;
+                            result += thirdValue;
+                            secondValue = 0;
+                            thirdValue = 0;
+                            textField.setText(String.valueOf(result));
                             break;
                         case "*":
                             result = firstValue * secondValue;
@@ -319,12 +339,15 @@ public class Myframe extends JFrame{
                             textField.setText(String.valueOf(result));
                             operator = "";
                             break;
+                        
                     }
+                break;
                 default:
-                    textField.setText(command);
-                    break;
+                    textField.setText(textField.getText() + command);
+                    stringValue = textField.getText();
+                    firstValue = Double.parseDouble(stringValue);
+                    System.out.println("StringValue = " + stringValue);
             }
-        }
-        
+        }   
     }
 }
