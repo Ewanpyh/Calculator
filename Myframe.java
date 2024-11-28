@@ -1,5 +1,6 @@
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -261,93 +262,69 @@ public class Myframe extends JFrame{
         this.add(textField);
     }
 
-    // private void writeToTextField(){
-
-    // }
-
-
-    private class ButtonClick implements ActionListener{
+    private class ButtonClick implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String command = e.getActionCommand();
-            String value = "";
-            switch(command){
-                case "C":
-                    textField.setText("");
-                    firstValue = 0;
-                    secondValue = 0;
-                    thirdValue = 0;
-                    stringValue = "";
-                    operator = "";
-                    result = 0;
-                    break;
-                case "+":
-                    if(result == 0){
-                        secondValue = firstValue;
-                    }
-                    textField.setText("");
-                    operator = "+";
-                    stringValue = "";
-                    break;
-                case "-":
-                    if (result == 0){
-                        secondValue = firstValue;
-                    }
-                    textField.setText("");
-                    operator = "-";
-                    stringValue = "";
-                    break;
-                case "*":
-                    // firstValue = Double.parseDouble(textField.getText());
-                    // operator = command;
-                    // command = "";   
-                case "/":
-                    // firstValue = Double.parseDouble(textField.getText());
-                    // operator = command;
-                    // command = "";
-                case "=":
-                    //secondValue = Double.parseDouble();
-                    
-                    switch (operator) {
-                        case "+":
-                            thirdValue = firstValue + secondValue;
-                            result += thirdValue;
-                            secondValue = 0;
-                            thirdValue = 0;
-                            textField.setText(String.valueOf(result));
-                            break;
-                        case "-":
-                            thirdValue = secondValue - firstValue;
-                            result += thirdValue;
-                            secondValue = 0;
-                            thirdValue = 0;
-                            textField.setText(String.valueOf(result));
-                            break;
-                        case "*":
-                            result = firstValue * secondValue;
-                            break;    
-                        case "/":
-                            if(secondValue == 0){
-                                textField.setText("Ошибка");
-                                return;
-                            }
-                            else{
-                                result = firstValue / secondValue;
-                            }
-                            break;
-                        default:
-                            textField.setText(String.valueOf(result));
-                            operator = "";
-                            break;
-                        
-                    }
-                break;
-                default:
-                    textField.setText(textField.getText() + command);
-                    stringValue = textField.getText();
-                    firstValue = Double.parseDouble(stringValue);
-                    System.out.println("StringValue = " + stringValue);
+    
+            try {
+                switch (command) {
+                    case "C":
+                        textField.setText("");
+                        firstValue = 0;
+                        secondValue = 0;
+                        operator = "";
+                        result = 0;
+                        break;
+    
+                    case "+":
+                    case "-":
+                    case "*":
+                    case "/":
+                        operator = command;
+                        firstValue = Double.parseDouble(textField.getText());
+                        textField.setText("");
+                        break;
+    
+                    case "=":
+                        secondValue = Double.parseDouble(textField.getText());
+                        switch (operator) {
+                            case "+":
+                                result = firstValue + secondValue;
+                                break;
+                            case "-":
+                                result = firstValue - secondValue;
+                                break;
+                            case "*":
+                                result = firstValue * secondValue;
+                                break;
+                            case "/":
+                                if (secondValue != 0) {
+                                    result = firstValue / secondValue;
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Ошибка: деление на ноль!");
+                                    textField.setText("");
+                                    return;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        textField.setText(String.valueOf(result));
+                        firstValue = result; 
+                        break;
+    
+                    default:
+
+                        String currentText = textField.getText();
+                        textField.setText(currentText + command);
+                        break;
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Ошибка ввода: пожалуйста, введите корректное число.");
+                textField.setText("");
             }
-        }   
+        }
     }
 }
+    
